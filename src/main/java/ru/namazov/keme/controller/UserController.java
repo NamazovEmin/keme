@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.namazov.keme.converter.UserDtoConverter;
 import ru.namazov.keme.dto.UserDto;
 import ru.namazov.keme.entity.User;
+import ru.namazov.keme.service.UserService;
 
 import lombok.AllArgsConstructor;
 
@@ -18,10 +19,10 @@ import lombok.AllArgsConstructor;
 public class UserController {
 
     private final UserDtoConverter userDtoConverter;
+    private final UserService userService;
 
     @PostMapping
-    public void createUser(UserDto userDto){
-        User user = userDtoConverter.fromDto(userDto);
-
+    public UserDto createUser(UserDto userDto){
+       return  userDtoConverter.toDto(userService.save(userDtoConverter.fromDto(userDto)));
     }
 }

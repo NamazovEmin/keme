@@ -12,7 +12,7 @@ public class UserDtoConverter {
     public User fromDto(UserDto userDto) {
         return new User(
                 userDto.getName(),
-                userDto.getSurname(),
+                userDto.getPassword(),
                 userDto.getEmail()
         );
     }
@@ -21,7 +21,7 @@ public class UserDtoConverter {
         return new UserDto(
                 user.getId(),
                 user.getName(),
-                user.getSurname(),
+                user.getPassword(),
                 user.getEmail()
         );
     }
