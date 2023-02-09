@@ -16,4 +16,15 @@ public class QuoteFacadeRepositoryImpl implements QuoteFacadeRepository {
     public Quote save(Quote quote) {
         return quoteReposytory.save(quote);
     }
+
+    @Override
+    public Quote get(long id) {
+        return quoteReposytory.getReferenceById(id);
+    }
+
+    @Override
+    public void delete(Quote quote) {
+        quoteReposytory.delete(quote);
+    }
+
 }

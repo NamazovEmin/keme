@@ -16,4 +16,12 @@ public class QuoteService {
     public Quote save(Quote quote) {
         return quoteFacadeRepository.save(quote);
     }
+
+    public Quote get(long id) {
+        return quoteFacadeRepository.get(id);
+    }
+
+    public void delete(Quote quote) {
+        quoteFacadeRepository.delete(quote);
+    }
 }
