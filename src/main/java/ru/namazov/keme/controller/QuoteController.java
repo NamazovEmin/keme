@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ru.namazov.keme.converter.UserDtoConverter;
-import ru.namazov.keme.dto.UserDto;
-import ru.namazov.keme.service.UserService;
+import ru.namazov.keme.converter.QuoteDtoConverter;
+import ru.namazov.keme.dto.QuoteDto;
+import ru.namazov.keme.service.QuoteService;
 
 import lombok.AllArgsConstructor;
 
@@ -15,13 +15,13 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/user")
 @CrossOrigin("*")
 @AllArgsConstructor
-public class UserController {
+public class QuoteController {
 
-    private final UserDtoConverter userDtoConverter;
-    private final UserService userService;
+    QuoteDtoConverter quoteDtoConverter;
+    QuoteService quoteService;
 
     @PostMapping
-    public UserDto create(UserDto userDto){
-       return  userDtoConverter.toDto(userService.save(userDtoConverter.fromDto(userDto)));
+    public QuoteDto create(QuoteDto quoteDto) {
+        return quoteDtoConverter.toDto(quoteService.save(quoteDtoConverter.fromDto(quoteDto)));
     }
 }

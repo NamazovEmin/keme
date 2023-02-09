@@ -15,4 +15,8 @@ public class UserDto {
         this.password = password;
         this.email = email;
     }
+
+
+    //нужны ли тут тут время создания и обновления
+
 }
