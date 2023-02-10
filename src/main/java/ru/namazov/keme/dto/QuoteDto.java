@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -23,8 +25,10 @@ public class QuoteDto {
 
     private long id;
 
+    @JsonProperty(required = true)
     private String text;
 
+    @JsonProperty(required = true)
     private User user;
 
     public QuoteDto(long id, String text, User user) {
@@ -32,7 +36,4 @@ public class QuoteDto {
         this.text = text;
         this.user = user;
     }
-
-    //нужны ли тут тут время создания и обновления
-
 }

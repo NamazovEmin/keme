@@ -16,7 +16,6 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/quote")
-@CrossOrigin("*")
 @AllArgsConstructor
 public class QuoteController {
 
@@ -40,7 +39,6 @@ public class QuoteController {
 
     @PutMapping
     public QuoteDto put(QuoteDto quoteDto) {
-        return quoteDtoConverter.toDto()
-//                как апдейтить??
+        return quoteDtoConverter.toDto(quoteService.save(quoteDtoConverter.fromDto(quoteDto)));
     }
 }

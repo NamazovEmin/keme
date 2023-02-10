@@ -3,7 +3,7 @@ package ru.namazov.keme.service;
 import org.springframework.stereotype.Service;
 
 import ru.namazov.keme.entity.Quote;
-import ru.namazov.keme.repository.QuoteFacadeRepository;
+import ru.namazov.keme.repository.facade.QuoteFacadeRepository;
 
 import lombok.AllArgsConstructor;
 

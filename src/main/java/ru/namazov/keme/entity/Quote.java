@@ -1,6 +1,9 @@
 package ru.namazov.keme.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.persistence.*;
 
@@ -28,6 +31,7 @@ public class Quote {
     @JoinColumn(name = "user_id")
     private User user;
 
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")
@@ -38,8 +42,12 @@ public class Quote {
     @Column(name = "update_date")
     private Date updateDate;
 
+    @OneToMany
+    @JoinColumn(name = "vote_id")
+    private final List<Vote> voteList = new ArrayList<>();
+
+
+
     public Quote(String text, User user) {
     }
-
-//    ссылка на голоса
 }

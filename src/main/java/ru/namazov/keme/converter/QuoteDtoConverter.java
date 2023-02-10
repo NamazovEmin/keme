@@ -1,8 +1,11 @@
 package ru.namazov.keme.converter;
 
+import org.springframework.stereotype.Component;
+
 import ru.namazov.keme.dto.QuoteDto;
 import ru.namazov.keme.entity.Quote;
 
+@Component
 public class QuoteDtoConverter {
 
     public Quote fromDto(QuoteDto quoteDto) {
