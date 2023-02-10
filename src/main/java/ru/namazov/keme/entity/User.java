@@ -14,13 +14,19 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
-@Getter
+@AllArgsConstructor
+@Data
+@EqualsAndHashCode
 public class User {
     @Id
     @Column(name = "user_id")

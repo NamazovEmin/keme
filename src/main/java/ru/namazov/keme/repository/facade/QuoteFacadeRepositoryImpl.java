@@ -8,7 +8,7 @@ package ru.namazov.keme.repository.facade;
 import org.springframework.stereotype.Repository;
 
 import ru.namazov.keme.entity.Quote;
-import ru.namazov.keme.repository.QuoteReposytory;
+import ru.namazov.keme.repository.QuoteRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -16,21 +16,21 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class QuoteFacadeRepositoryImpl implements QuoteFacadeRepository {
 
-    private final QuoteReposytory quoteReposytory;
+    private final QuoteRepository quoteRepository;
 
     @Override
     public Quote save(Quote quote) {
-        return quoteReposytory.save(quote);
+        return quoteRepository.save(quote);
     }
 
     @Override
     public Quote get(long id) {
-        return quoteReposytory.getReferenceById(id);
+        return quoteRepository.getReferenceById(id);
     }
 
     @Override
     public void delete(Quote quote) {
-        quoteReposytory.delete(quote);
+        quoteRepository.delete(quote);
     }
 
 }

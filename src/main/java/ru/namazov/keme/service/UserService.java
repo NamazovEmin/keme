@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 public class UserService {
     private final UserFacadeRepository userFacadeRepository;
 
-    public User save(User user) {
+    public User create(User user) {
         return userFacadeRepository.save(user);
     }
 }

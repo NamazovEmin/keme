@@ -8,7 +8,7 @@ package ru.namazov.keme.repository.facade;
 import org.springframework.stereotype.Repository;
 
 import ru.namazov.keme.entity.User;
-import ru.namazov.keme.repository.UserReposytory;
+import ru.namazov.keme.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -16,10 +16,10 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserFacadeRepositoryImpl implements UserFacadeRepository {
 
-    private final UserReposytory userReposytory;
+    private final UserRepository userRepository;
 
     @Override
     public User save(User user) {
-        return userReposytory.save(user);
+        return userRepository.save(user);
     }
 }

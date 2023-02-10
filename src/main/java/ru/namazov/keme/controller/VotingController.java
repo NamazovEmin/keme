@@ -1,13 +1,11 @@
 package ru.namazov.keme.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ru.namazov.keme.converter.VoteDtoConverter;
 import ru.namazov.keme.dto.VoteDto;
-import ru.namazov.keme.entity.Vote;
 import ru.namazov.keme.service.VoteService;
 
 import lombok.AllArgsConstructor;

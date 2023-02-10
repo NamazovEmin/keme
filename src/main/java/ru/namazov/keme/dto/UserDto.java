@@ -3,25 +3,34 @@ package ru.namazov.keme.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Getter
+@NoArgsConstructor
+@Data
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class UserDto {
 
-    private final long id;
+    private long id;
 
     @JsonProperty(required = true)
-    private final String name;
+    private String name;
 
     @JsonProperty(required = true)
-    private final String password;
+    private String password;
 
     @JsonProperty(required = true)
-    private final String email;
+    private String email;
 
     public UserDto(long id, String name, String password, String email) {
         this.id = id;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+    }
+
+    public UserDto(String name, String password, String email) {
         this.name = name;
         this.password = password;
         this.email = email;
