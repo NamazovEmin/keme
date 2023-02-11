@@ -3,8 +3,6 @@ package ru.namazov.keme.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import ru.namazov.keme.entity.User;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

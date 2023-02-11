@@ -16,7 +16,6 @@ import ru.namazov.keme.converter.QuoteDtoConverter;
 import ru.namazov.keme.dto.QuoteDto;
 import ru.namazov.keme.entity.Quote;
 import ru.namazov.keme.service.QuoteService;
-import ru.namazov.keme.specification.QuoteSpecification;
 
 import lombok.AllArgsConstructor;
 

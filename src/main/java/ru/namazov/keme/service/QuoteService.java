@@ -30,5 +30,4 @@ public class QuoteService {
     public void delete(Quote quote) {
         quoteRepository.delete(quote);
     }
-
 }
