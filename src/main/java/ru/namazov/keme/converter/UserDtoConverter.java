@@ -3,17 +3,18 @@ package ru.namazov.keme.converter;
 import org.springframework.stereotype.Component;
 
 import ru.namazov.keme.dto.UserDto;
+import ru.namazov.keme.dto.UserNewDto;
 import ru.namazov.keme.entity.User;
 
 
 @Component
 public class UserDtoConverter {
 
-    public User toEntity(UserDto userDto) {
+    public User toEntity(UserNewDto userNewDto) {
         return new User(
-                userDto.getName(),
-                userDto.getPassword(),
-                userDto.getEmail()
+                userNewDto.getName(),
+                userNewDto.getPassword(),
+                userNewDto.getEmail()
         );
     }
 
