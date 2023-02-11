@@ -29,8 +29,8 @@ import lombok.Setter;
 @EqualsAndHashCode
 public class User {
     @Id
-    @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "name")

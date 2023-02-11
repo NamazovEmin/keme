@@ -45,7 +45,7 @@ class UserControllerTest {
         User user = new User("bob", "dsds", "sd@gmail.com");
         User userSaved = new User(1L,"bob", "dsds", "sd@gmail.com",new Date());
         UserDto userDtoSaved = new UserDto(1L,"bob", "dsds", "sd@gmail.com");
-        when(userDtoConverter.fromDto(userDto)).thenReturn(user) ;
+        when(userDtoConverter.toEntity(userDto)).thenReturn(user) ;
         when(userService.create(user)).thenReturn(userSaved);
         when(userDtoConverter.toDto(userSaved)).thenReturn(userDtoSaved);
         userController.create(userDto);

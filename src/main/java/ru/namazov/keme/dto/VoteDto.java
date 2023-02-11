@@ -5,28 +5,26 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import ru.namazov.keme.entity.Quote;
-import ru.namazov.keme.entity.User;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import lombok.Getter;
-
-@Getter
+@NoArgsConstructor
+@Data
+@AllArgsConstructor
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class VoteDto {
 
     private long id;
 
     @JsonProperty(required = true)
-    private User user;
+    private long userId;
 
     @JsonProperty(required = true)
-    private Quote quote;
+    private long quoteId;
 
-    @JsonProperty(required = true)
+    @JsonProperty(value = "isPositive", required = true)
     private boolean isPositive;
 
     private Date createDate;
-
-    public VoteDto(long id, User user, Quote quote, boolean isPositive, Date createDate) {
-    }
 }

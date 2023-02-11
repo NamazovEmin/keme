@@ -3,7 +3,7 @@ package ru.namazov.keme.service;
 import org.springframework.stereotype.Service;
 
 import ru.namazov.keme.entity.Vote;
-import ru.namazov.keme.repository.facade.VoteFacadeRepository;
+import ru.namazov.keme.repository.VoteRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -11,9 +11,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class VoteService {
 
-    VoteFacadeRepository voteFacadeRepository;
+    VoteRepository voteRepository;
 
     public Vote save(Vote vote) {
-        return voteFacadeRepository.save(vote);
+        return voteRepository.save(vote);
     }
 }

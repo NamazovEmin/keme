@@ -9,7 +9,7 @@ import ru.namazov.keme.entity.User;
 @Component
 public class UserDtoConverter {
 
-    public User fromDto(UserDto userDto) {
+    public User toEntity(UserDto userDto) {
         return new User(
                 userDto.getName(),
                 userDto.getPassword(),

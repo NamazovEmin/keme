@@ -3,7 +3,6 @@ package ru.namazov.keme.entity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.*;
 
@@ -14,23 +13,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "quote")
+@Table(name = "quotes")
 @NoArgsConstructor
 @Getter
 public class Quote {
 
     @Id
-    @Column(name = "quote_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "text")
     private String text;
 
-    @ManyToOne
+//    @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
-
+    private long userId;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -46,8 +44,8 @@ public class Quote {
     @JoinColumn(name = "vote_id")
     private final List<Vote> voteList = new ArrayList<>();
 
-
-
-    public Quote(String text, User user) {
+    public Quote(String text, long userId) {
+        this.text = text;
+        this.userId = userId;
     }
 }

@@ -1,9 +1,12 @@
 package ru.namazov.keme.service;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import ru.namazov.keme.entity.Quote;
-import ru.namazov.keme.repository.facade.QuoteFacadeRepository;
+import ru.namazov.keme.repository.QuoteRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -11,17 +14,21 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class QuoteService {
 
-    private final QuoteFacadeRepository quoteFacadeRepository;
+    private final QuoteRepository quoteRepository;
 
     public Quote save(Quote quote) {
-        return quoteFacadeRepository.save(quote);
+        return quoteRepository.save(quote);
     }
 
     public Quote get(long id) {
-        return quoteFacadeRepository.get(id);
+        return quoteRepository.getReferenceById(id);
+    }
+    public List<Quote> getTop10() {
+        return Collections.emptyList();
     }
 
     public void delete(Quote quote) {
-        quoteFacadeRepository.delete(quote);
+        quoteRepository.delete(quote);
     }
+
 }

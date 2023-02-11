@@ -6,27 +6,29 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "vote")
+@Table(name = "votes")
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 public class Vote {
 
     @Id
-    @Column(name = "vote_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+//    @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private long userId;
 
-    @ManyToOne
+//    @ManyToOne
     @JoinColumn(name = "quote_id")
-    private Quote quote;
+    private long quoteId;
 
     @Column(name = "is_positive")
     private boolean isPositive;
@@ -36,6 +38,9 @@ public class Vote {
     @Column(name = "create_date")
     private Date createDate;
 
-    public Vote(User user, Quote quote, boolean isPositive) {
+    public Vote(long userId, long quoteId, boolean isPositive) {
+        this.userId = userId;
+        this.quoteId = quoteId;
+        this.isPositive = isPositive;
     }
 }

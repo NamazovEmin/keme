@@ -8,10 +8,10 @@ import ru.namazov.keme.entity.Quote;
 @Component
 public class QuoteDtoConverter {
 
-    public Quote fromDto(QuoteDto quoteDto) {
+    public Quote toEntity(QuoteDto quoteDto) {
         return new Quote(
                 quoteDto.getText(),
-                quoteDto.getUser()
+                quoteDto.getUserId()
         );
     }
 
@@ -19,7 +19,7 @@ public class QuoteDtoConverter {
         return new QuoteDto(
                 quote.getId(),
                 quote.getText(),
-                quote.getUser()
+                quote.getUserId()
         );
     }
 }

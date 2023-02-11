@@ -8,10 +8,10 @@ import ru.namazov.keme.entity.Vote;
 @Component
 public class VoteDtoConverter {
 
-    public Vote fromDto(VoteDto voteDto) {
+    public Vote toEntity(VoteDto voteDto) {
         return new Vote(
-                voteDto.getUser(),
-                voteDto.getQuote(),
+                voteDto.getUserId(),
+                voteDto.getQuoteId(),
                 voteDto.isPositive()
         );
     }
@@ -19,8 +19,8 @@ public class VoteDtoConverter {
     public VoteDto toDto(Vote vote) {
         return new VoteDto(
                 vote.getId(),
-                vote.getUser(),
-                vote.getQuote(),
+                vote.getUserId(),
+                vote.getQuoteId(),
                 vote.isPositive(),
                 vote.getCreateDate()
         );

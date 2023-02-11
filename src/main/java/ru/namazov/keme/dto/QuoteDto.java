@@ -1,12 +1,16 @@
 package ru.namazov.keme.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ru.namazov.keme.entity.User;
 
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
+@NoArgsConstructor
+@Data
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class QuoteDto {
 
     private long id;
@@ -15,11 +19,11 @@ public class QuoteDto {
     private String text;
 
     @JsonProperty(required = true)
-    private User user;
+    private long userId;
 
-    public QuoteDto(long id, String text, User user) {
+    public QuoteDto(long id, String text, long userId) {
         this.id = id;
         this.text = text;
-        this.user = user;
+        this.userId = userId;
     }
 }
