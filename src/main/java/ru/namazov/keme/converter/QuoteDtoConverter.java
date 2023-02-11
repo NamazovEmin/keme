@@ -1,17 +1,29 @@
 package ru.namazov.keme.converter;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Component;
 
 import ru.namazov.keme.dto.QuoteDto;
+import ru.namazov.keme.dto.QuoteNewDto;
 import ru.namazov.keme.entity.Quote;
+import ru.namazov.keme.entity.User;
+import ru.namazov.keme.repository.UserRepository;
+
+import lombok.AllArgsConstructor;
 
 @Component
+@AllArgsConstructor
 public class QuoteDtoConverter {
 
-    public Quote toEntity(QuoteDto quoteDto) {
+    private final UserRepository userRepository;
+
+    public Quote toEntity(QuoteNewDto quoteNewDto) {
+//        доделать эксепшен если юзер не найден
+        User user = userRepository.findById(quoteNewDto.getUserId()).orElseThrow(() -> new RuntimeException("sds"));
         return new Quote(
-                quoteDto.getText(),
-                quoteDto.getUserId()
+                quoteNewDto.getText(),
+                user
         );
     }
 
@@ -19,7 +31,7 @@ public class QuoteDtoConverter {
         return new QuoteDto(
                 quote.getId(),
                 quote.getText(),
-                quote.getUserId()
+                quote.getUser()
         );
     }
 }

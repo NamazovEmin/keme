@@ -2,6 +2,7 @@ package ru.namazov.keme.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ru.namazov.keme.converter.QuoteDtoConverter;
 import ru.namazov.keme.dto.QuoteDto;
+import ru.namazov.keme.dto.QuoteNewDto;
 import ru.namazov.keme.entity.Quote;
 import ru.namazov.keme.service.QuoteService;
 
@@ -29,31 +31,36 @@ public class QuoteController {
 
 
     @PostMapping
-    public QuoteDto create(@RequestBody QuoteDto quoteDto) {
-        Quote quote = quoteDtoConverter.toEntity(quoteDto);
+    public ResponseEntity<QuoteDto> create(@RequestBody QuoteNewDto quoteNewDto) {
+        Quote quote = quoteDtoConverter.toEntity(quoteNewDto);
         Quote savedQuote = quoteService.save(quote);
-        return quoteDtoConverter.toDto(savedQuote);
+        QuoteDto quoteDto = quoteDtoConverter.toDto(savedQuote);
+        return ResponseEntity.ok().body(quoteDto);
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public QuoteDto get(@PathVariable(required = false) long id) {
-                return quoteDtoConverter.toDto(quoteService.get(id));
+    public ResponseEntity<QuoteDto> get(@PathVariable(required = false) long id) {
+        Quote quote = quoteService.get(id);
+        QuoteDto quoteDto = quoteDtoConverter.toDto(quote);
+                return ResponseEntity.ok().body(quoteDto);
     }
 
-    @GetMapping("/top10")
-    @ResponseBody
-    public List<Quote> get() {
-        return quoteService.getTop10();
-    }
-
-    @DeleteMapping
-    public void delete(@RequestBody QuoteDto quoteDto) {
-        quoteService.delete(quoteDtoConverter.toEntity(quoteDto));
-    }
-
-    @PutMapping
-    public QuoteDto put(@RequestBody QuoteDto quoteDto) {
-        return quoteDtoConverter.toDto(quoteService.save(quoteDtoConverter.toEntity(quoteDto)));
-    }
+//    @GetMapping("/top10")
+//    @ResponseBody
+//    public List<Quote> get() {
+//        return quoteService.getTop10();
+//    }
+//
+//    @DeleteMapping
+//    public void delete(@RequestBody QuoteNewDto quoteNewDto) {
+//        quoteService.delete(quoteDtoConverter.toEntity(quoteNewDto));
+//    }
+//
+//    @PutMapping
+//    public QuoteNewDto put(@RequestBody QuoteNewDto quoteNewDto) {
+//        Quote quote = quoteDtoConverter.toEntity(quoteNewDto);
+//        Quote savedQuote = quoteService.save(quote);
+//        return quoteDtoConverter.toDto(savedQuote);
+//    }
 }
