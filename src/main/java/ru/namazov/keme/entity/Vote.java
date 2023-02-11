@@ -31,14 +31,14 @@ public class Vote {
     private long id;
 
 //    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private long userId;
 
 //    @ManyToOne
-    @JoinColumn(name = "quote_id")
+    @JoinColumn(name = "quote_id", nullable = false)
     private long quoteId;
 
-    @Column(name = "is_positive")
+    @Column(name = "is_positive", nullable = false)
     private boolean isPositive;
 
     @CreationTimestamp
