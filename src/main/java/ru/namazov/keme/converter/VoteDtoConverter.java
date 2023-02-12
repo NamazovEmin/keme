@@ -1,6 +1,7 @@
 package ru.namazov.keme.converter;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import ru.namazov.keme.dto.VoteDto;
 import ru.namazov.keme.dto.VoteNewDto;
@@ -19,6 +20,7 @@ public class VoteDtoConverter {
     private final UserRepository userRepository;
     private final QuoteRepository quoteRepository;
 
+    @Transactional
     public Vote toEntity(VoteNewDto voteNewDto) {
 //        доделать эксепшены
         User user = userRepository.findById(voteNewDto.getUserId()).orElseThrow(() -> new RuntimeException("sds"));
