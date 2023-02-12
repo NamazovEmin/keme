@@ -46,20 +46,14 @@ public class QuoteController {
     }
 
     @GetMapping("/top10")
-    public List<Long> get() {
+    public List<Long> getTop10() {
         List<Quote> dbList = quoteService.getTop10();
         return topDtoConverter.toDto(dbList);
     }
-//
-//    @DeleteMapping
-//    public void delete(@RequestBody QuoteNewDto quoteNewDto) {
-//        quoteService.delete(quoteDtoConverter.toEntity(quoteNewDto));
-//    }
-//
-//    @PutMapping
-//    public QuoteNewDto put(@RequestBody QuoteNewDto quoteNewDto) {
-//        Quote quote = quoteDtoConverter.toEntity(quoteNewDto);
-//        Quote savedQuote = quoteService.save(quote);
-//        return quoteDtoConverter.toDto(savedQuote);
-//    }
+
+    @GetMapping("/worst10")
+    public List<Long> getWors10() {
+        List<Quote> dbList = quoteService.getWorst10();
+        return topDtoConverter.toDto(dbList);
+    }
 }

@@ -34,6 +34,11 @@ public class QuoteService {
         return page.getContent();
     }
 
+    public List<Quote> getWorst10() {
+        Page<Quote> page = quoteRepository.findAll(PageRequest.of(0, 10, Sort.by(Sort.Order.desc("countNegativeVote"))));
+        return page.getContent();
+    }
+
     public void delete(Quote quote) {
         quoteRepository.delete(quote);
     }
