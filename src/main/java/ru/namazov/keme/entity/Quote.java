@@ -10,12 +10,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Table(name = "quotes")
 @NoArgsConstructor
 @Getter
+@Setter
 //@ToString(exclude = "votes")
 public class Quote {
 
@@ -43,6 +45,12 @@ public class Quote {
 
     @OneToMany(mappedBy = "quote")
     private List<Vote> voteList;
+
+    @Column(name = "positive")
+    private long countPositiveVote = 0;
+
+    @Column(name = "negative")
+    private long countNegativeVote = 0;
 
     public Quote(String text, User user) {
         this.text = text;

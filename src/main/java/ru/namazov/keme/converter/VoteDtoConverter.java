@@ -22,10 +22,16 @@ public class VoteDtoConverter {
     public Vote toEntity(VoteNewDto voteNewDto) {
 //        доделать эксепшены
         User user = userRepository.findById(voteNewDto.getUserId()).orElseThrow(() -> new RuntimeException("sds"));
-        Quote quote  = quoteRepository.findById(voteNewDto.getQuoteId()).orElseThrow(() -> new RuntimeException("sds"));
+        Quote quote = quoteRepository.findById(voteNewDto.getQuoteId()).orElseThrow(() -> new RuntimeException("sds"));
+        if (voteNewDto.isPositive()){
+            quote.setCountPositiveVote(quote.getCountPositiveVote() + 1L);
+        } else {
+            quote.setCountNegativeVote(quote.getCountNegativeVote() + 1L);
+        }
+        Quote savedQuote = quoteRepository.save(quote);
         return new Vote(
                 user,
-                quote,
+                savedQuote,
                 voteNewDto.isPositive()
         );
     }

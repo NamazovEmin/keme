@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.persistence.Column;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -31,4 +33,10 @@ public class QuoteDto {
 
     @JsonProperty(required = true)
     private long userId;
+
+    @Column(name = "positive")
+    private long countPositiveVote = 0;
+
+    @Column(name = "negative")
+    private long countNegativeVote = 0;
 }

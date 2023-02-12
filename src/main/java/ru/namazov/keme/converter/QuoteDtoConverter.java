@@ -31,7 +31,8 @@ public class QuoteDtoConverter {
         return new QuoteDto(
                 quote.getId(),
                 quote.getText(),
-                quote.getUser().getId()
+                quote.getUser().getId(),
+                quote.getCountPositiveVote(), quote.getCountNegativeVote()
         );
     }
 }

@@ -38,7 +38,7 @@ public class QuoteController {
     public ResponseEntity<QuoteDto> get(@PathVariable(required = false) long id) {
         Quote quote = quoteService.get(id);
         QuoteDto quoteDto = quoteDtoConverter.toDto(quote);
-                return ResponseEntity.ok().body(quoteDto);
+        return ResponseEntity.ok().body(quoteDto);
     }
 
 //    @GetMapping("/top10")
