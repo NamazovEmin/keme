@@ -28,7 +28,7 @@ public class Vote {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "quote_id", nullable = false)
     private Quote quote;
 

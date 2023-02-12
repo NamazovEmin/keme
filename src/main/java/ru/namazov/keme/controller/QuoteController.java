@@ -1,5 +1,7 @@
 package ru.namazov.keme.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.namazov.keme.converter.QuoteDtoConverter;
 import ru.namazov.keme.dto.QuoteDto;
 import ru.namazov.keme.dto.QuoteNewDto;
+import ru.namazov.keme.converter.TopDtoConverter;
 import ru.namazov.keme.entity.Quote;
 import ru.namazov.keme.service.QuoteService;
 
@@ -24,6 +27,7 @@ public class QuoteController {
 
     private QuoteDtoConverter quoteDtoConverter;
     private QuoteService quoteService;
+    private TopDtoConverter topDtoConverter;
 
     @PostMapping
     public ResponseEntity<QuoteDto> create(@RequestBody QuoteNewDto quoteNewDto) {
@@ -41,11 +45,11 @@ public class QuoteController {
         return ResponseEntity.ok().body(quoteDto);
     }
 
-//    @GetMapping("/top10")
-//    @ResponseBody
-//    public List<Quote> get() {
-//        return quoteService.getTop10();
-//    }
+    @GetMapping("/top10")
+    public List<Long> get() {
+        List<Quote> dbList = quoteService.getTop10();
+        return topDtoConverter.toDto(dbList);
+    }
 //
 //    @DeleteMapping
 //    public void delete(@RequestBody QuoteNewDto quoteNewDto) {

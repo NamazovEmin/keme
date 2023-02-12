@@ -28,10 +28,9 @@ public class VoteDtoConverter {
         } else {
             quote.setCountNegativeVote(quote.getCountNegativeVote() + 1L);
         }
-        Quote savedQuote = quoteRepository.save(quote);
         return new Vote(
                 user,
-                savedQuote,
+                quote,
                 voteNewDto.isPositive()
         );
     }
