@@ -2,22 +2,16 @@ package ru.namazov.keme.entity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Data
 @Entity
 @Table(name = "votes")
 @NoArgsConstructor
@@ -30,13 +24,13 @@ public class Vote {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-//    @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private long userId;
+    private User user;
 
-//    @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "quote_id", nullable = false)
-    private long quoteId;
+    private Quote quote;
 
     @Column(name = "is_positive", nullable = false)
     private boolean isPositive;
@@ -46,9 +40,9 @@ public class Vote {
     @Column(name = "create_date")
     private Date createDate;
 
-    public Vote(long userId, long quoteId, boolean isPositive) {
-        this.userId = userId;
-        this.quoteId = quoteId;
+    public Vote(User user, Quote quote, boolean isPositive) {
+        this.user = user;
+        this.quote = quote;
         this.isPositive = isPositive;
     }
 }

@@ -2,7 +2,6 @@ package ru.namazov.keme.entity;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.*;
 
@@ -11,11 +10,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "quotes")
 @NoArgsConstructor
 @Getter
+//@ToString(exclude = "votes")
 public class Quote {
 
     @Id
@@ -40,9 +41,8 @@ public class Quote {
     @Column(name = "update_date")
     private Date updateDate;
 
-//    @OneToMany(fetch = FetchType.EAGER)
-////    @JoinColumn(name = "votes_id")
-//    private  List<Vote> voteList;
+    @OneToMany(mappedBy = "quote")
+    private List<Vote> voteList;
 
     public Quote(String text, User user) {
         this.text = text;

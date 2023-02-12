@@ -21,7 +21,8 @@ public class QuoteService {
     }
 
     public Quote get(long id) {
-        return quoteRepository.getReferenceById(id);
+        Quote quote = quoteRepository.getReferenceById(id);
+        return quote;
     }
     public List<Quote> getTop10() {
         return Collections.emptyList();

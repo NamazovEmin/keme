@@ -3,24 +3,38 @@ package ru.namazov.keme.converter;
 import org.springframework.stereotype.Component;
 
 import ru.namazov.keme.dto.VoteDto;
+import ru.namazov.keme.dto.VoteNewDto;
+import ru.namazov.keme.entity.Quote;
+import ru.namazov.keme.entity.User;
 import ru.namazov.keme.entity.Vote;
+import ru.namazov.keme.repository.QuoteRepository;
+import ru.namazov.keme.repository.UserRepository;
+
+import lombok.AllArgsConstructor;
 
 @Component
+@AllArgsConstructor
 public class VoteDtoConverter {
 
-    public Vote toEntity(VoteDto voteDto) {
+    private final UserRepository userRepository;
+    private final QuoteRepository quoteRepository;
+
+    public Vote toEntity(VoteNewDto voteNewDto) {
+//        доделать эксепшены
+        User user = userRepository.findById(voteNewDto.getUserId()).orElseThrow(() -> new RuntimeException("sds"));
+        Quote quote  = quoteRepository.findById(voteNewDto.getQuoteId()).orElseThrow(() -> new RuntimeException("sds"));
         return new Vote(
-                voteDto.getUserId(),
-                voteDto.getQuoteId(),
-                voteDto.isPositive()
+                user,
+                quote,
+                voteNewDto.isPositive()
         );
     }
 
     public VoteDto toDto(Vote vote) {
         return new VoteDto(
                 vote.getId(),
-                vote.getUserId(),
-                vote.getQuoteId(),
+                vote.getUser().getId(),
+                vote.getQuote().getId(),
                 vote.isPositive(),
                 vote.getCreateDate()
         );

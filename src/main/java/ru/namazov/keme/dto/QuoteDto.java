@@ -1,9 +1,15 @@
 package ru.namazov.keme.dto;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ru.namazov.keme.entity.User;
+import ru.namazov.keme.entity.Vote;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +30,5 @@ public class QuoteDto {
     private String text;
 
     @JsonProperty(required = true)
-    private User user;
-
+    private long userId;
 }

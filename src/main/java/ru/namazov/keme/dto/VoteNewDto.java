@@ -1,23 +1,17 @@
 package ru.namazov.keme.dto;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 @EqualsAndHashCode
+@NoArgsConstructor
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
-public class VoteDto {
-
-    private long id;
+public class VoteNewDto {
 
     @JsonProperty(required = true)
     private long userId;
@@ -25,8 +19,6 @@ public class VoteDto {
     @JsonProperty(required = true)
     private long quoteId;
 
-    @JsonProperty(value = "isPositive", required = true)
+    @JsonProperty(required = true)
     private boolean isPositive;
-
-    private Date createDate;
 }

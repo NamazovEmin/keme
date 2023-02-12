@@ -31,7 +31,7 @@ public class QuoteDtoConverter {
         return new QuoteDto(
                 quote.getId(),
                 quote.getText(),
-                quote.getUser()
+                quote.getUser().getId()
         );
     }
 }
