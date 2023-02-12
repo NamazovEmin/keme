@@ -10,7 +10,6 @@ import ru.namazov.keme.converter.VoteDtoConverter;
 import ru.namazov.keme.dto.VoteDto;
 import ru.namazov.keme.dto.VoteNewDto;
 import ru.namazov.keme.entity.Vote;
-import ru.namazov.keme.service.QuoteService;
 import ru.namazov.keme.service.VoteService;
 
 import lombok.AllArgsConstructor;

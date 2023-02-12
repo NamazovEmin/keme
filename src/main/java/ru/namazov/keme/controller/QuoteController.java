@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ru.namazov.keme.converter.QuoteDtoConverter;
+import ru.namazov.keme.converter.TopDtoConverter;
 import ru.namazov.keme.dto.QuoteDto;
 import ru.namazov.keme.dto.QuoteNewDto;
-import ru.namazov.keme.converter.TopDtoConverter;
 import ru.namazov.keme.entity.Quote;
 import ru.namazov.keme.service.QuoteService;
 
@@ -46,14 +46,23 @@ public class QuoteController {
     }
 
     @GetMapping("/top10")
-    public List<Long> getTop10() {
+    public ResponseEntity<List<Long>> getTop10() {
         List<Quote> dbList = quoteService.getTop10();
-        return topDtoConverter.toDto(dbList);
+        List<Long> top10List = topDtoConverter.toDto(dbList);
+        return ResponseEntity.ok().body(top10List);
     }
 
     @GetMapping("/worst10")
-    public List<Long> getWors10() {
+    public ResponseEntity<List<Long>> getWors10() {
         List<Quote> dbList = quoteService.getWorst10();
-        return topDtoConverter.toDto(dbList);
+        List<Long> top10List = topDtoConverter.toDto(dbList);
+        return ResponseEntity.ok().body(top10List);
+    }
+
+    @GetMapping("/random")
+    public ResponseEntity<QuoteDto> getRandom() {
+        Quote quote = quoteService.getRandom();
+        QuoteDto quoteDto = quoteDtoConverter.toDto(quote);
+        return ResponseEntity.ok().body(quoteDto);
     }
 }

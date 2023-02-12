@@ -1,12 +1,8 @@
 package ru.namazov.keme.service;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import ru.namazov.keme.entity.Quote;
@@ -25,18 +21,21 @@ public class QuoteService {
     }
 
     public Quote get(long id) {
-        Quote quote = quoteRepository.getReferenceById(id);
-        return quote;
+        return quoteRepository.findById(id).orElseThrow(() -> new RuntimeException("sds"));
     }
 
     public List<Quote> getTop10() {
-        Page<Quote> page = quoteRepository.findAll(PageRequest.of(0, 10, Sort.by(Sort.Order.desc("countPositiveVote"))));
-        return page.getContent();
+        return quoteRepository.findFirst10ByOrderByCountPositiveVoteDesc();
     }
 
     public List<Quote> getWorst10() {
-        Page<Quote> page = quoteRepository.findAll(PageRequest.of(0, 10, Sort.by(Sort.Order.desc("countNegativeVote"))));
-        return page.getContent();
+        return quoteRepository.findFirst10ByOrderByCountNegativeVoteDesc();
+    }
+
+    public Quote getRandom() {
+        Quote quote = quoteRepository.findTopByOrderByIdDesc();
+        long random = ThreadLocalRandom.current().nextInt(1, (int) (quote.getId() + 1));
+        return quoteRepository.findById(random).orElseThrow(() -> new RuntimeException("sds"));
     }
 
     public void delete(Quote quote) {
