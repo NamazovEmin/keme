@@ -8,9 +8,9 @@ import ru.namazov.keme.dto.VoteNewDto;
 import ru.namazov.keme.entity.Quote;
 import ru.namazov.keme.entity.User;
 import ru.namazov.keme.entity.Vote;
+import ru.namazov.keme.exceptions.ResourceNotFoundResponseException;
 import ru.namazov.keme.service.QuoteService;
 import ru.namazov.keme.service.UserService;
-import ru.namazov.keme.service.VotingEventService;
 
 import lombok.AllArgsConstructor;
 
@@ -19,21 +19,19 @@ import lombok.AllArgsConstructor;
 public class VoteDtoConverter {
 
     private final UserService userService;
-//    private final QuoteRepository quoteRepository;
     private final QuoteService quoteService;
-    private final VotingEventService votingEventService;
 
     @Transactional
     public Vote toEntity(VoteNewDto voteNewDto) {
-//        доделать эксепшены
-        User user = userService.findById(voteNewDto.getUserId()).orElseThrow(() -> new RuntimeException("sds"));
-        Quote quote = quoteService.findById(voteNewDto.getQuoteId()).orElseThrow(() -> new RuntimeException("sds"));
+        User user = userService.findById(voteNewDto.getUserId()).orElseThrow(() ->
+                new ResourceNotFoundResponseException(String.format("User with id: %d not found", voteNewDto.getUserId())));
+        Quote quote = quoteService.findById(voteNewDto.getQuoteId()).orElseThrow(() ->
+                new ResourceNotFoundResponseException(String.format("User with id: %d not found", voteNewDto.getQuoteId())));
         return new Vote(
                 user,
                 quote,
                 voteNewDto.isPositive()
         );
-
     }
 
     public VoteDto toDto(Vote vote) {

@@ -9,6 +9,7 @@ import ru.namazov.keme.dto.QuoteDto;
 import ru.namazov.keme.dto.QuoteNewDto;
 import ru.namazov.keme.entity.Quote;
 import ru.namazov.keme.entity.User;
+import ru.namazov.keme.exceptions.ResourceNotFoundResponseException;
 import ru.namazov.keme.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ public class QuoteDtoConverter {
     private final UserService userService;
 
     public Quote toEntity(QuoteNewDto quoteNewDto) {
-        User user = userService.findById(quoteNewDto.getUserId()).orElseThrow(() -> new RuntimeException("sds"));;
+        User user = userService.findById(quoteNewDto.getUserId()).orElseThrow(() -> new ResourceNotFoundResponseException(String.format("User with id: %d not found", quoteNewDto.getUserId())));
         return new Quote(
                 quoteNewDto.getText(),
                 user

@@ -6,7 +6,6 @@ import ru.namazov.keme.dto.UserDto;
 import ru.namazov.keme.dto.UserNewDto;
 import ru.namazov.keme.entity.User;
 
-
 @Component
 public class UserDtoConverter {
 

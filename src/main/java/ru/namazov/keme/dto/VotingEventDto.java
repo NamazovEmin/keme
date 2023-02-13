@@ -1,21 +1,9 @@
-/*
- * Copyright (c) 2023, TopS BI LLC. All rights reserved.
- * http://www.topsbi.ru
- */
-
 package ru.namazov.keme.dto;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Enumerated;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import org.hibernate.annotations.CreationTimestamp;
 
 import ru.namazov.keme.enums.VoteEventType;
 

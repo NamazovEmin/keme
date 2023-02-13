@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.namazov.keme.entity.Vote;
 import ru.namazov.keme.entity.VotingEvent;
 import ru.namazov.keme.enums.VoteEventType;
+import ru.namazov.keme.exceptions.ResourceNotFoundResponseException;
 import ru.namazov.keme.repository.VoteRepository;
 
 import lombok.AllArgsConstructor;
@@ -34,7 +35,7 @@ public class VoteService {
     }
 
     public Vote findById(Long id) {
-        return voteRepository.findById(id).orElseThrow(() -> new RuntimeException("sds"));
+        return voteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundResponseException(String.format("Vote with id: %d not found", id)));
     }
 
     public void deleteById(Long id) {

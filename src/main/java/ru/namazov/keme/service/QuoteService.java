@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import ru.namazov.keme.entity.Quote;
+import ru.namazov.keme.exceptions.ResourceNotFoundResponseException;
 import ru.namazov.keme.repository.QuoteRepository;
 
 import lombok.AllArgsConstructor;
@@ -25,21 +26,13 @@ public class QuoteService {
     }
 
     public Quote get(long id) {
-        return quoteRepository.findById(id).orElseThrow(() -> new RuntimeException("sds"));
+        return quoteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundResponseException(String.format("Quote with id: %d not found", id)));
     }
-
-//    public List<Quote> getTop10() {
-//        return quoteRepository.findFirst10ByOrderByCountPositiveVoteDesc();
-//    }
-//
-//    public List<Quote> getWorst10() {
-//        return quoteRepository.findFirst10ByOrderByCountNegativeVoteDesc();
-//    }
 
     public Quote getRandom() {
         Quote quote = quoteRepository.findTopByOrderByIdDesc();
         long random = ThreadLocalRandom.current().nextInt(1, (int) (quote.getId() + 1));
-        return quoteRepository.findById(random).orElseThrow(() -> new RuntimeException("sds"));
+        return quoteRepository.findById(random).orElseThrow(() -> new ResourceNotFoundResponseException("Quote is missing"));
     }
 
     public void delete(Long quote) {
@@ -47,7 +40,7 @@ public class QuoteService {
     }
 
     public Quote put(Quote quote, Long id) {
-        Quote dbQuote = quoteRepository.findById(id).orElseThrow(() -> new RuntimeException("sds"));
+        Quote dbQuote = quoteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundResponseException(String.format("Quote with id: %d not found", id)));
         dbQuote.setText(quote.getText());
         return quoteRepository.save(dbQuote);
     }

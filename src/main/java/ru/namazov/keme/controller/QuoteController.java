@@ -29,7 +29,6 @@ public class QuoteController {
     private final QuoteDtoConverter quoteDtoConverter;
     private final QuoteService quoteService;
 
-
     @PostMapping
     public ResponseEntity<QuoteDto> create(@RequestBody QuoteNewDto quoteNewDto) {
         Quote quote = quoteDtoConverter.toEntity(quoteNewDto);
