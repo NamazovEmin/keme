@@ -3,6 +3,9 @@ package ru.namazov.keme.service;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import ru.namazov.keme.entity.Quote;
@@ -38,13 +41,25 @@ public class QuoteService {
         return quoteRepository.findById(random).orElseThrow(() -> new RuntimeException("sds"));
     }
 
-    public void delete(Quote quote) {
-        quoteRepository.delete(quote);
+    public void delete(Long quote) {
+        quoteRepository.deleteById(quote);
     }
 
     public Quote put(Quote quote, Long id) {
         Quote dbQuote = quoteRepository.findById(id).orElseThrow(() -> new RuntimeException("sds"));
         dbQuote.setText(quote.getText());
         return quoteRepository.save(dbQuote);
+    }
+
+    public List<Quote> getTop(Long topCount, Boolean whichTop) {
+        Page<Quote> page;
+        if (whichTop) {
+            page = quoteRepository.findAll(
+                    PageRequest.of(0, Math.toIntExact(topCount), Sort.by(Sort.Order.desc("countNegativeVote"))));
+        } else {
+            page = quoteRepository.findAll(
+                    PageRequest.of(0, Math.toIntExact(topCount), Sort.by(Sort.Order.asc("countNegativeVote"))));
+        }
+        return page.getContent();
     }
 }

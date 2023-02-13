@@ -60,6 +60,16 @@ public class QuoteController {
         return ResponseEntity.ok().body(top10List);
     }
 
+    @GetMapping("/top/{topCount}/{whichTop}")
+    @ResponseBody
+    public ResponseEntity<List<QuoteDto>> getTop(@PathVariable Long topCount, @PathVariable Boolean whichTop) {
+        List<Quote> dbList = quoteService.getTop(topCount, whichTop);
+        List<QuoteDto> top10List = quoteDtoConverter.toQuoteDTOList(dbList);
+        return ResponseEntity.ok().body(top10List);
+    }
+
+
+
     @GetMapping("/random")
     public ResponseEntity<QuoteDto> getRandom() {
         Quote quote = quoteService.getRandom();
@@ -68,7 +78,7 @@ public class QuoteController {
     }
 
     @PutMapping("/{id}")
-    @ResponseBody()
+    @ResponseBody
     public ResponseEntity<QuoteDto> put(@RequestBody QuoteNewDto quoteNewDto,
                                         @PathVariable Long id) {
         Quote quote = quoteDtoConverter.toEntity(quoteNewDto);
@@ -77,9 +87,11 @@ public class QuoteController {
         return ResponseEntity.ok().body(quoteDto);
     }
 
-    @DeleteMapping
-    public void delete(@RequestBody QuoteNewDto quoteNewDto) {
-//        delete - удаляет из бд,
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public void delete(@PathVariable Long id) {
+        quoteService.delete(id);
+        // что тут вернуть ?
     }
 
 }
