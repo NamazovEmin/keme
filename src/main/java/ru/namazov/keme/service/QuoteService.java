@@ -1,79 +1,26 @@
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
 package ru.namazov.keme.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ThreadLocalRandom;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
 
 import ru.namazov.keme.entity.Quote;
-import ru.namazov.keme.exceptions.ResourceNotFoundResponseException;
-import ru.namazov.keme.repository.QuoteRepository;
 
-import lombok.AllArgsConstructor;
+public interface QuoteService {
 
-@Service
-@AllArgsConstructor
-public class QuoteService {
+    Quote save(Quote quote);
 
-    private final QuoteRepository quoteRepository;
+    Quote getRandom();
 
-    public Quote save(Quote quote) {
-        return quoteRepository.save(quote);
-    }
+    void delete(Long quote);
 
-    public Quote get(long id) {
-        return quoteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundResponseException(String.format("Quote with id: %d not found", id)));
-    }
+    Quote put(Quote quote, Long id);
 
-    public Quote getRandom() {
-        Quote quote = quoteRepository.findTopByOrderByIdDesc();
-        long random = ThreadLocalRandom.current().nextInt(1, (int) (quote.getId() + 1));
-        return quoteRepository.findById(random).orElseThrow(() -> new ResourceNotFoundResponseException("Quote is missing"));
-    }
+    List<Quote> getTop(Long topCount, Boolean whichTop);
 
-    public void delete(Long quote) {
-        quoteRepository.deleteById(quote);
-    }
-
-    public Quote put(Quote quote, Long id) {
-        Quote dbQuote = quoteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundResponseException(String.format("Quote with id: %d not found", id)));
-        dbQuote.setText(quote.getText());
-        return quoteRepository.save(dbQuote);
-    }
-
-    public List<Quote> getTop(Long topCount, Boolean whichTop) {
-        Page<Quote> page;
-        if (whichTop) {
-            page = quoteRepository.findAll(
-                    PageRequest.of(0, Math.toIntExact(topCount), Sort.by(Sort.Order.desc("countNegativeVotes"))));
-        } else {
-            page = quoteRepository.findAll(
-                    PageRequest.of(0, Math.toIntExact(topCount), Sort.by(Sort.Order.desc("countNegativeVotes"))));
-        }
-        return page.getContent();
-    }
-
-    public Optional<Quote> findById(long quoteId) {
-        return quoteRepository.findById(quoteId);
-    }
-
-    public void incrementVotesNumber(Quote quote, boolean isPositive) {
-        if (isPositive){
-            quote.setCountPositiveVotes(quote.getCountPositiveVotes() + 1L);
-        } else {
-            quote.setCountNegativeVotes(quote.getCountNegativeVotes() + 1L);
-        }
-    }
-
-    public void decrementVotesNumber(Quote quote, boolean isPositive) {
-        if (isPositive){
-            quote.setCountPositiveVotes(quote.getCountPositiveVotes() - 1L);
-        } else {
-            quote.setCountNegativeVotes(quote.getCountNegativeVotes() - 1L);
-        }
-    }
+    Optional<Quote> findById(long quoteId);
 }

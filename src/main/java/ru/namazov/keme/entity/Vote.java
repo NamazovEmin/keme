@@ -11,6 +11,10 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * the vote that a user casts when voting
+ */
+
 @Data
 @Entity
 @Table(name = "votes")
@@ -24,17 +28,29 @@ public class Vote {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    /**
+     * user who voted
+     */
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    /**
+     * quote for which the user votes
+     */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "quote_id", nullable = false)
     private Quote quote;
 
+    /**
+     * vote is positive or negative
+     */
     @Column(name = "is_positive", nullable = false)
     private boolean isPositive;
 
+    /**
+     * vote created time
+     */
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")

@@ -18,6 +18,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+/**
+ * user of the system who can create quotes and vote for them
+ */
+
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
@@ -30,15 +34,27 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    /**
+     * user name
+     */
     @Column(name = "name", nullable = false)
     private String name;
 
+    /**
+     * user password
+     */
     @Column(name = "password", nullable = false)
     private String password;
 
+    /**
+     * user email
+     */
     @Column(name = "email", nullable = false)
     private String email;
 
+    /**
+     * user created time
+     */
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date")

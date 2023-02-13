@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ru.namazov.keme.converter.VoteDtoConverter;
+import ru.namazov.keme.converter.VoteDtoConverterImpl;
 import ru.namazov.keme.dto.VoteDto;
 import ru.namazov.keme.dto.VoteNewDto;
 import ru.namazov.keme.entity.Vote;
-import ru.namazov.keme.service.VoteService;
+import ru.namazov.keme.service.VoteServiceImpl;
 
 import lombok.AllArgsConstructor;
 
@@ -22,14 +22,14 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class VoteController {
 
-    private final VoteDtoConverter voteDtoConverter;
-    private final VoteService voteService;
+    private final VoteDtoConverterImpl voteDtoConverterImpl;
+    private final VoteServiceImpl voteServiceImpl;
 
     @PostMapping
     public ResponseEntity<VoteDto> create(@RequestBody VoteNewDto voteNewDto) {
-        Vote vote = voteDtoConverter.toEntity(voteNewDto);
-        Vote savedVote = voteService.create(vote);
-        VoteDto voteDto = voteDtoConverter.toDto(savedVote);
+        Vote vote = voteDtoConverterImpl.toEntity(voteNewDto);
+        Vote savedVote = voteServiceImpl.create(vote);
+        VoteDto voteDto = voteDtoConverterImpl.toDto(savedVote);
         return ResponseEntity.ok().body(voteDto);
 
     }
@@ -37,6 +37,6 @@ public class VoteController {
     @DeleteMapping("/{id}")
     @ResponseBody
     public void delete(@PathVariable Long id) {
-        voteService.deleteById(id);
+        voteServiceImpl.deleteById(id);
     }
 }
