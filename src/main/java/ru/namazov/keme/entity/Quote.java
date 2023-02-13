@@ -35,7 +35,7 @@ public class Quote {
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_date")
+    @Column(name = "create_date", updatable = false)
     private Date createDate;
 
     @UpdateTimestamp
@@ -43,14 +43,14 @@ public class Quote {
     @Column(name = "update_date")
     private Date updateDate;
 
-    @OneToMany(mappedBy = "quote")
+    @OneToMany(mappedBy = "quote", orphanRemoval = true)
     private List<Vote> voteList;
 
     @Column(name = "positive")
-    private long countPositiveVote = 0;
+    private long countPositiveVote;
 
     @Column(name = "negative")
-    private long countNegativeVote = 0;
+    private long countNegativeVote;
 
     public Quote(String text, User user) {
         this.text = text;

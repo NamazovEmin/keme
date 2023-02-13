@@ -1,6 +1,8 @@
 package ru.namazov.keme.converter;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -35,4 +37,9 @@ public class QuoteDtoConverter {
                 quote.getCountPositiveVote(), quote.getCountNegativeVote()
         );
     }
+
+    public List<QuoteDto> toQuoteDTOList(List<Quote> quotes) {
+        return quotes.stream().map(this::toDto).collect(Collectors.toList());
+    }
+
 }

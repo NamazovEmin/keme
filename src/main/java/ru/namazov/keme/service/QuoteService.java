@@ -41,4 +41,10 @@ public class QuoteService {
     public void delete(Quote quote) {
         quoteRepository.delete(quote);
     }
+
+    public Quote put(Quote quote, Long id) {
+        Quote dbQuote = quoteRepository.findById(id).orElseThrow(() -> new RuntimeException("sds"));
+        dbQuote.setText(quote.getText());
+        return quoteRepository.save(dbQuote);
+    }
 }
