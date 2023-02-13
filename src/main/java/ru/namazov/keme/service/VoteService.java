@@ -49,6 +49,6 @@ public class VoteService {
                     vote.getQuote().getCountNegativeVotes());
         }
         votingEventService.save(votingEvent);
-        voteRepository.deleteById(id);
+        voteRepository.delete(vote);
     }
 }
