@@ -1,17 +1,9 @@
 package ru.namazov.keme.dto;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
 import javax.persistence.Column;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import ru.namazov.keme.entity.User;
-import ru.namazov.keme.entity.Vote;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

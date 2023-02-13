@@ -1,5 +1,7 @@
 package ru.namazov.keme.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import ru.namazov.keme.entity.User;
@@ -16,5 +18,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public User create(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public Optional<User> findById(long userId) {
+        return userRepository.findById(userId);
     }
 }

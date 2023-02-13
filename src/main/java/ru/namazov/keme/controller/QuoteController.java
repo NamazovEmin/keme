@@ -26,8 +26,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class QuoteController {
 
-    private QuoteDtoConverter quoteDtoConverter;
-    private QuoteService quoteService;
+    private final QuoteDtoConverter quoteDtoConverter;
+    private final QuoteService quoteService;
 
 
     @PostMapping
@@ -46,29 +46,12 @@ public class QuoteController {
         return ResponseEntity.ok().body(quoteDto);
     }
 
-    @GetMapping("/top10")
-    public ResponseEntity<List<QuoteDto>> getTop10() {
-        List<Quote> dbList = quoteService.getTop10();
-        List<QuoteDto> top10List = quoteDtoConverter.toQuoteDTOList(dbList);
-        return ResponseEntity.ok().body(top10List);
-    }
-
-    @GetMapping("/worst10")
-    public ResponseEntity<List<QuoteDto>> getWorst10() {
-        List<Quote> dbList = quoteService.getWorst10();
-        List<QuoteDto> top10List = quoteDtoConverter.toQuoteDTOList(dbList);
-        return ResponseEntity.ok().body(top10List);
-    }
-
-    @GetMapping("/top/{topCount}/{whichTop}")
-    @ResponseBody
-    public ResponseEntity<List<QuoteDto>> getTop(@PathVariable Long topCount, @PathVariable Boolean whichTop) {
+    @GetMapping("/chart/{topCount}/{whichTop}")
+    public ResponseEntity<List<QuoteDto>> getTop(@PathVariable(name ="topCount") Long topCount, @PathVariable(name = "whichTop") Boolean whichTop) {
         List<Quote> dbList = quoteService.getTop(topCount, whichTop);
         List<QuoteDto> top10List = quoteDtoConverter.toQuoteDTOList(dbList);
         return ResponseEntity.ok().body(top10List);
     }
-
-
 
     @GetMapping("/random")
     public ResponseEntity<QuoteDto> getRandom() {
@@ -91,7 +74,5 @@ public class QuoteController {
     @ResponseBody
     public void delete(@PathVariable Long id) {
         quoteService.delete(id);
-        // что тут вернуть ?
     }
-
 }

@@ -1,6 +1,7 @@
 package ru.namazov.keme.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.data.domain.Page;
@@ -27,13 +28,13 @@ public class QuoteService {
         return quoteRepository.findById(id).orElseThrow(() -> new RuntimeException("sds"));
     }
 
-    public List<Quote> getTop10() {
-        return quoteRepository.findFirst10ByOrderByCountPositiveVoteDesc();
-    }
-
-    public List<Quote> getWorst10() {
-        return quoteRepository.findFirst10ByOrderByCountNegativeVoteDesc();
-    }
+//    public List<Quote> getTop10() {
+//        return quoteRepository.findFirst10ByOrderByCountPositiveVoteDesc();
+//    }
+//
+//    public List<Quote> getWorst10() {
+//        return quoteRepository.findFirst10ByOrderByCountNegativeVoteDesc();
+//    }
 
     public Quote getRandom() {
         Quote quote = quoteRepository.findTopByOrderByIdDesc();
@@ -55,11 +56,31 @@ public class QuoteService {
         Page<Quote> page;
         if (whichTop) {
             page = quoteRepository.findAll(
-                    PageRequest.of(0, Math.toIntExact(topCount), Sort.by(Sort.Order.desc("countNegativeVote"))));
+                    PageRequest.of(0, Math.toIntExact(topCount), Sort.by(Sort.Order.desc("countNegativeVotes"))));
         } else {
             page = quoteRepository.findAll(
-                    PageRequest.of(0, Math.toIntExact(topCount), Sort.by(Sort.Order.asc("countNegativeVote"))));
+                    PageRequest.of(0, Math.toIntExact(topCount), Sort.by(Sort.Order.desc("countNegativeVotes"))));
         }
         return page.getContent();
+    }
+
+    public Optional<Quote> findById(long quoteId) {
+        return quoteRepository.findById(quoteId);
+    }
+
+    public void incrementVotesNumber(Quote quote, boolean isPositive) {
+        if (isPositive){
+            quote.setCountPositiveVotes(quote.getCountPositiveVotes() + 1L);
+        } else {
+            quote.setCountNegativeVotes(quote.getCountNegativeVotes() + 1L);
+        }
+    }
+
+    public void decrementVotesNumber(Quote quote, boolean isPositive) {
+        if (isPositive){
+            quote.setCountPositiveVotes(quote.getCountPositiveVotes() - 1L);
+        } else {
+            quote.setCountNegativeVotes(quote.getCountNegativeVotes() - 1L);
+        }
     }
 }

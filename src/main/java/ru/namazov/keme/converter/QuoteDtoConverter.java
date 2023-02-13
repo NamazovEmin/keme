@@ -1,7 +1,6 @@
 package ru.namazov.keme.converter;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -10,7 +9,7 @@ import ru.namazov.keme.dto.QuoteDto;
 import ru.namazov.keme.dto.QuoteNewDto;
 import ru.namazov.keme.entity.Quote;
 import ru.namazov.keme.entity.User;
-import ru.namazov.keme.repository.UserRepository;
+import ru.namazov.keme.service.UserService;
 
 import lombok.AllArgsConstructor;
 
@@ -18,11 +17,10 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class QuoteDtoConverter {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     public Quote toEntity(QuoteNewDto quoteNewDto) {
-//        доделать эксепшен если юзер не найден
-        User user = userRepository.findById(quoteNewDto.getUserId()).orElseThrow(() -> new RuntimeException("sds"));
+        User user = userService.findById(quoteNewDto.getUserId()).orElseThrow(() -> new RuntimeException("sds"));;
         return new Quote(
                 quoteNewDto.getText(),
                 user
@@ -34,12 +32,11 @@ public class QuoteDtoConverter {
                 quote.getId(),
                 quote.getText(),
                 quote.getUser().getId(),
-                quote.getCountPositiveVote(), quote.getCountNegativeVote()
+                quote.getCountPositiveVotes(), quote.getCountNegativeVotes()
         );
     }
 
     public List<QuoteDto> toQuoteDTOList(List<Quote> quotes) {
         return quotes.stream().map(this::toDto).collect(Collectors.toList());
     }
-
 }
