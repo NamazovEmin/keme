@@ -35,7 +35,6 @@ public class VoteController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseBody
     public void delete(@PathVariable Long id) {
         voteServiceImpl.deleteById(id);
     }

@@ -39,7 +39,6 @@ public class QuoteController {
     }
 
     @GetMapping("/{id}")
-    @ResponseBody
     public ResponseEntity<QuoteDto> get(@PathVariable(required = false) long id) {
         Quote quote = quoteServiceImpl.findById(id).orElseThrow(() ->
                 new ResourceNotFoundResponseException(String.format("User with id: %d not found", id)));
@@ -62,7 +61,6 @@ public class QuoteController {
     }
 
     @PutMapping("/{id}")
-    @ResponseBody
     public ResponseEntity<QuoteDto> put(@RequestBody QuoteNewDto quoteNewDto,
                                         @PathVariable Long id) {
         Quote quote = quoteDtoConverterImpl.toEntity(quoteNewDto);
@@ -72,7 +70,6 @@ public class QuoteController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseBody
     public void delete(@PathVariable Long id) {
         quoteServiceImpl.delete(id);
     }

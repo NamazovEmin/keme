@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  app-compose:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: kameleoon-app-compose:11
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
