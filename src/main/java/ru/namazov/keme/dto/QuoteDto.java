@@ -1,7 +1,5 @@
 package ru.namazov.keme.dto;
 
-import javax.persistence.Column;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -25,7 +23,7 @@ public class QuoteDto {
 
     @JsonProperty(required = true)
     private long userId;
-    
+
     private long countPositiveVote;
 
     private long countNegativeVote;

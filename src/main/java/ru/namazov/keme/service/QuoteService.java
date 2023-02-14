@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2023, TopS BI LLC. All rights reserved.
- * http://www.topsbi.ru
- */
-
 package ru.namazov.keme.service;
 
 import java.util.List;
