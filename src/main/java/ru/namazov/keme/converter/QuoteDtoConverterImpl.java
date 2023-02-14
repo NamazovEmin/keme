@@ -28,7 +28,6 @@ public class QuoteDtoConverterImpl implements QuoteDtoConverter {
                 user
         );
     }
-
     @Override
     public QuoteDto toDto(Quote quote) {
         return new QuoteDto(
