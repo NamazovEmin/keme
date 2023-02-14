@@ -28,7 +28,6 @@ public class QuoteServiceImpl implements QuoteService {
     }
 
     @Override
-    @Transactional
     public Quote getRandom() {
         Optional<Quote> quote = quoteRepository.findTopByOrderByIdDesc();
         if (quote.isEmpty()) {
