@@ -9,5 +9,5 @@ public interface VotingEventConverter {
 
     VotingEventDto toDto(VotingEvent votingEvent);
 
-    public List<VotingEventDto> toVotingEventDtoList(List<VotingEvent> votingEventList);
+    List<VotingEventDto> toVotingEventDtoList(List<VotingEvent> votingEventList);
 }

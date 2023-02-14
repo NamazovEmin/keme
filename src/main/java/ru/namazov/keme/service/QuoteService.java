@@ -12,15 +12,19 @@ import ru.namazov.keme.entity.Quote;
 
 public interface QuoteService {
 
-    Quote save(Quote quote);
+    Quote create(Quote quote);
 
     Quote getRandom();
 
     void delete(Long quote);
 
-    Quote put(Quote quote, Long id);
+    Quote update(Quote quote, Long id);
 
     List<Quote> getTop(Long topCount, Boolean whichTop);
 
     Optional<Quote> findById(long quoteId);
+
+    void decrementVotesNumber(Quote quote, boolean isPositive);
+
+    void incrementVotesNumber(Quote quote, boolean isPositive);
 }

@@ -17,8 +17,8 @@ import lombok.AllArgsConstructor;
 public class VoteServiceImpl implements VoteService {
 
     private final VoteRepository voteRepository;
-    private final QuoteServiceImpl quoteServiceImpl;
-    private final VotingEventServiceImpl votingEventServiceImpl;
+    private final QuoteService quoteService;
+    private final VotingEventService votingEventService;
 
     @Transactional
     @Override
@@ -27,7 +27,7 @@ public class VoteServiceImpl implements VoteService {
             throw new ResourceAlreadyExistsResponseException(String.format("Vote with userId:%d and quoteId:%d already exists",
                     vote.getUser().getId(), vote.getQuote().getId()));
         }
-        quoteServiceImpl.incrementVotesNumber(vote.getQuote(), vote.isPositive());
+        quoteService.incrementVotesNumber(vote.getQuote(), vote.isPositive());
         VotingEvent votingEvent;
         if (vote.isPositive()){
             votingEvent = new VotingEvent(vote.getQuote().getId(), VoteEventType.LIKE,vote.getQuote().getCountPositiveVotes(),
@@ -36,7 +36,7 @@ public class VoteServiceImpl implements VoteService {
             votingEvent = new VotingEvent(vote.getQuote().getId(), VoteEventType.DISLIKE,vote.getQuote().getCountPositiveVotes(),
                     vote.getQuote().getCountNegativeVotes());
         }
-        votingEventServiceImpl.save(votingEvent);
+        votingEventService.save(votingEvent);
         return voteRepository.save(vote);
     }
 
@@ -49,7 +49,7 @@ public class VoteServiceImpl implements VoteService {
     @Override
     public void deleteById(Long id) {
         Vote vote = findById(id);
-        quoteServiceImpl.decrementVotesNumber(vote.getQuote(), vote.isPositive());
+        quoteService.decrementVotesNumber(vote.getQuote(), vote.isPositive());
         VotingEvent votingEvent;
         if (vote.isPositive()){
             votingEvent = new VotingEvent(vote.getQuote().getId(), VoteEventType.TAKE_LIKE_BACK,vote.getQuote().getCountPositiveVotes(),
@@ -58,7 +58,7 @@ public class VoteServiceImpl implements VoteService {
             votingEvent = new VotingEvent(vote.getQuote().getId(), VoteEventType.TAKE_DISLiKE_BACK,vote.getQuote().getCountPositiveVotes(),
                     vote.getQuote().getCountNegativeVotes());
         }
-        votingEventServiceImpl.save(votingEvent);
+        votingEventService.save(votingEvent);
         voteRepository.delete(vote);
     }
 

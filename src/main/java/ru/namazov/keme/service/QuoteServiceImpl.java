@@ -7,7 +7,9 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ru.namazov.keme.entity.Quote;
 import ru.namazov.keme.exceptions.ResourceNotFoundResponseException;
@@ -22,15 +24,26 @@ public class QuoteServiceImpl implements QuoteService {
     private final QuoteRepository quoteRepository;
 
     @Override
-    public Quote save(Quote quote) {
+    public Quote create(Quote quote) {
         return quoteRepository.save(quote);
     }
 
     @Override
+    @Transactional
     public Quote getRandom() {
-        Quote quote = quoteRepository.findTopByOrderByIdDesc();
-        long random = ThreadLocalRandom.current().nextInt(1, (int) (quote.getId() + 1));
-        return quoteRepository.findById(random).orElseThrow(() -> new ResourceNotFoundResponseException("Quote is missing"));
+        Optional<Quote> quote = quoteRepository.findTopByOrderByIdDesc();
+        if (quote.isEmpty()) {
+            throw new ResourceNotFoundResponseException("No Quotes saved");
+        }
+
+        long random = ThreadLocalRandom.current().nextLong(1, quote.get().getId() + 1);
+
+        if ((quoteRepository.findById(random).isPresent())) {
+            return quoteRepository.findById(random).orElseThrow(() -> new ResourceNotFoundResponseException("Quote is missing"));
+        } else {
+            getRandom();
+        }
+        return null;
     }
 
     @Override
@@ -39,7 +52,8 @@ public class QuoteServiceImpl implements QuoteService {
     }
 
     @Override
-    public Quote put(Quote quote, Long id) {
+    @Transactional
+    public Quote update(Quote quote, Long id) {
         Quote dbQuote = quoteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundResponseException(String.format("Quote with id: %d not found", id)));
         dbQuote.setText(quote.getText());
         return quoteRepository.save(dbQuote);

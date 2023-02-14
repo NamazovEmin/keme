@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ru.namazov.keme.converter.VotingEventConverterImpl;
+import ru.namazov.keme.converter.VotingEventConverter;
 import ru.namazov.keme.dto.VotingEventDto;
 import ru.namazov.keme.entity.VotingEvent;
-import ru.namazov.keme.service.VotingEventServiceImpl;
+import ru.namazov.keme.service.VotingEventService;
 
 import lombok.AllArgsConstructor;
 
@@ -20,14 +20,13 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class VotingEventController {
 
-    private final VotingEventServiceImpl votingEventServiceImpl;
-    private final VotingEventConverterImpl votingEventConverterImpl;
-
+    private final VotingEventService votingEventService;
+    private final VotingEventConverter votingEventConverter;
 
     @GetMapping("/{id}")
     public ResponseEntity<List<VotingEventDto>> getDiagram(@PathVariable long id) {
-        List<VotingEvent> votingEventList = votingEventServiceImpl.getDiagram(id);
-        List<VotingEventDto> votingEventDtoList = votingEventConverterImpl.toVotingEventDtoList(votingEventList);
+        List<VotingEvent> votingEventList = votingEventService.getDiagram(id);
+        List<VotingEventDto> votingEventDtoList = votingEventConverter.toVotingEventDtoList(votingEventList);
         return ResponseEntity.ok().body(votingEventDtoList);
     }
 }

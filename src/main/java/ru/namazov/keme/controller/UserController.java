@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ru.namazov.keme.converter.UserDtoConverterImpl;
+import ru.namazov.keme.converter.UserDtoConverter;
 import ru.namazov.keme.dto.UserDto;
 import ru.namazov.keme.dto.UserNewDto;
 import ru.namazov.keme.entity.User;
-import ru.namazov.keme.service.UserServiceImpl;
+import ru.namazov.keme.service.UserService;
 
 import lombok.AllArgsConstructor;
 
@@ -19,14 +19,14 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserController {
 
-    private final UserDtoConverterImpl userDtoConverterImpl;
-    private final UserServiceImpl userServiceImpl;
+    private final UserDtoConverter userDtoConverter;
+    private final UserService userService;
 
     @PostMapping
     public ResponseEntity<UserDto> create(@RequestBody UserNewDto userNewDto) {
-        User user = userDtoConverterImpl.toEntity(userNewDto);
-        User savedUser = userServiceImpl.create(user);
-        UserDto savedUserDto = userDtoConverterImpl.toDto(savedUser);
+        User user = userDtoConverter.toEntity(userNewDto);
+        User savedUser = userService.create(user);
+        UserDto savedUserDto = userDtoConverter.toDto(savedUser);
         return  ResponseEntity.ok().body(savedUserDto);
     }
 }

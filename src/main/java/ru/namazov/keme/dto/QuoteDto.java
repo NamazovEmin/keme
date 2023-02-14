@@ -25,10 +25,8 @@ public class QuoteDto {
 
     @JsonProperty(required = true)
     private long userId;
+    
+    private long countPositiveVote;
 
-    @Column(name = "positive")
-    private long countPositiveVote = 0;
-
-    @Column(name = "negative")
-    private long countNegativeVote = 0;
+    private long countNegativeVote;
 }

@@ -10,15 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ru.namazov.keme.converter.QuoteDtoConverterImpl;
+import ru.namazov.keme.converter.QuoteDtoConverter;
 import ru.namazov.keme.dto.QuoteDto;
 import ru.namazov.keme.dto.QuoteNewDto;
 import ru.namazov.keme.entity.Quote;
 import ru.namazov.keme.exceptions.ResourceNotFoundResponseException;
-import ru.namazov.keme.service.QuoteServiceImpl;
+import ru.namazov.keme.service.QuoteService;
 
 import lombok.AllArgsConstructor;
 
@@ -27,50 +26,50 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class QuoteController {
 
-    private final QuoteDtoConverterImpl quoteDtoConverterImpl;
-    private final QuoteServiceImpl quoteServiceImpl;
+    private final QuoteDtoConverter quoteDtoConverter;
+    private final QuoteService quoteService;
 
     @PostMapping
     public ResponseEntity<QuoteDto> create(@RequestBody QuoteNewDto quoteNewDto) {
-        Quote quote = quoteDtoConverterImpl.toEntity(quoteNewDto);
-        Quote savedQuote = quoteServiceImpl.save(quote);
-        QuoteDto quoteDto = quoteDtoConverterImpl.toDto(savedQuote);
+        Quote quote = quoteDtoConverter.toEntity(quoteNewDto);
+        Quote savedQuote = quoteService.create(quote);
+        QuoteDto quoteDto = quoteDtoConverter.toDto(savedQuote);
         return ResponseEntity.ok().body(quoteDto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<QuoteDto> get(@PathVariable(required = false) long id) {
-        Quote quote = quoteServiceImpl.findById(id).orElseThrow(() ->
+    public ResponseEntity<QuoteDto> get(@PathVariable long id) {
+        Quote quote = quoteService.findById(id).orElseThrow(() ->
                 new ResourceNotFoundResponseException(String.format("User with id: %d not found", id)));
-        QuoteDto quoteDto = quoteDtoConverterImpl.toDto(quote);
+        QuoteDto quoteDto = quoteDtoConverter.toDto(quote);
         return ResponseEntity.ok().body(quoteDto);
     }
 
     @GetMapping("/chart/{topCount}/{whichTop}")
-    public ResponseEntity<List<QuoteDto>> getTop(@PathVariable(name ="topCount") Long topCount, @PathVariable(name = "whichTop") Boolean whichTop) {
-        List<Quote> dbList = quoteServiceImpl.getTop(topCount, whichTop);
-        List<QuoteDto> top10List = quoteDtoConverterImpl.toQuoteDTOList(dbList);
+    public ResponseEntity<List<QuoteDto>> chartList(@PathVariable(name ="topCount") Long topCount, @PathVariable(name = "whichTop") Boolean whichTop) {
+        List<Quote> dbList = quoteService.getTop(topCount, whichTop);
+        List<QuoteDto> top10List = quoteDtoConverter.toQuoteDTOList(dbList);
         return ResponseEntity.ok().body(top10List);
     }
 
     @GetMapping("/random")
     public ResponseEntity<QuoteDto> getRandom() {
-        Quote quote = quoteServiceImpl.getRandom();
-        QuoteDto quoteDto = quoteDtoConverterImpl.toDto(quote);
+        Quote quote = quoteService.getRandom();
+        QuoteDto quoteDto = quoteDtoConverter.toDto(quote);
         return ResponseEntity.ok().body(quoteDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<QuoteDto> put(@RequestBody QuoteNewDto quoteNewDto,
+    public ResponseEntity<QuoteDto> update(@RequestBody QuoteNewDto quoteNewDto,
                                         @PathVariable Long id) {
-        Quote quote = quoteDtoConverterImpl.toEntity(quoteNewDto);
-        Quote savedQuote = quoteServiceImpl.put(quote, id);
-        QuoteDto quoteDto = quoteDtoConverterImpl.toDto(savedQuote);
+        Quote quote = quoteDtoConverter.toEntity(quoteNewDto);
+        Quote savedQuote = quoteService.update(quote, id);
+        QuoteDto quoteDto = quoteDtoConverter.toDto(savedQuote);
         return ResponseEntity.ok().body(quoteDto);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        quoteServiceImpl.delete(id);
+        quoteService.delete(id);
     }
 }
