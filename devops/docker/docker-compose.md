@@ -92,7 +92,7 @@ PS D:\projects\examples\spring\job-tasks\kameleoon> docker-compose up
 docker tag kameleoon-app-compose:11 goldenboy369/kameleoon-app-compose:11
 ``
 
-Result: the image yuryli/kameleoon-app-compose:11 has been created in local docker
+Result: the image goldenboy369/kameleoon-app-compose:11 has been created in local docker
 
 ### Sign in my account on DockerHub
 ``
@@ -107,7 +107,7 @@ Logging in with your password grants your terminal complete access to your accou
 For better security, log in with a limited-privilege personal access token. Learn more at https://docs.docker.com/go/access-tokens/
 ``
 
-### Push the image yuryli/kameleoon-app-compose:11 to the remote repository on DockerHub
+### Push the image goldenboy369/kameleoon-app-compose:11 to the remote repository on DockerHub
 ``
 docker push goldenboy369/kameleoon-app-compose:11
 ``
@@ -130,11 +130,11 @@ docker pull goldenboy369/kameleoon-app-compose:11
 
 Result(the image already exists):   
 ``
-PS D:\projects\examples\spring\job-tasks\kameleoon> docker pull yuryli/kameleoon-app-compose:11
-11: Pulling from yuryli/kameleoon-app-compose
+PS D:\projects\examples\spring\job-tasks\kameleoon> docker pull goldenboy369/kameleoon-app-compose:11
+11: Pulling from goldenboy369/kameleoon-app-compose
 Digest: sha256:3b226f1788d886eab338b66db26b5921614bf777aa85edfda2bc452dc3cee75d
-Status: Image is up to date for yuryli/kameleoon-app-compose:11
-docker.io/yuryli/kameleoon-app-compose:11
+Status: Image is up to date for goldenboy369/kameleoon-app-compose:11
+docker.io/goldenboy369/kameleoon-app-compose:11
 ``
 
 ## Run the app's container (the image is pulling automatically if not exist in local docker)
@@ -147,10 +147,10 @@ docker run -d --name app-compose -p 8080:8080 goldenboy369/kameleoon-app-compose
 
 Result:       
 ``
-Unable to find image 'yuryli/kameleoon-app-compose:11' locally
-11: Pulling from yuryli/kameleoon-app-compose
+Unable to find image 'goldenboy369/kameleoon-app-compose:11' locally
+11: Pulling from goldenboy369/kameleoon-app-compose
 Digest: sha256:3b226f1788d886eab338b66db26b5921614bf777aa85edfda2bc452dc3cee75d
-Status: Downloaded newer image for yuryli/kameleoon-app-compose:11
+Status: Downloaded newer image for goldenboy369/kameleoon-app-compose:11
 d2293d1c61cc82e3d86be9bab5c0b3c4f348d2968e8e6c4415fce8d695633dc0
 ``
 
